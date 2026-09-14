@@ -1,7 +1,8 @@
-import json
+import bcrypt
 
-with open("users.json", "r") as file:
-    users = json.load(file)
+password = "mypassword"
 
-for user in users:
-    print(user["username"])
+salt = bcrypt.gensalt()
+hashed_password = bcrypt.hashpw(password.encode(), salt)
+
+print(hashed_password)
