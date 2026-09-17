@@ -16,6 +16,7 @@ def userpage(username):
         </html>
     """)
 
+
 @app.get("/wronglogin", response_class=HTMLResponse)
 def wronglogin():
     return HTMLResponse("""
@@ -83,7 +84,6 @@ def signin(username: str = Form(...), password: str = Form(...)):
 @app.post("/create")
 def save_account(username: str = Form(...), password: str = Form(...)):
 
-    #optional defensive block
     try:
         with open("users.json", "r") as file:
             users = json.load(file)
@@ -106,5 +106,5 @@ def save_account(username: str = Form(...), password: str = Form(...)):
     with open("users.json", "w") as file:
         json.dump(users, file, indent=4)
 
-    return {"message": "Account created!"}
+    return userpage(username)
 
